@@ -3,20 +3,35 @@
     <appender name="Console"
               class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{dd-mm-yyyy HH:mm:ss.SSS} %level: %msg | request # %n</pattern>
+            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %level: %msg | request #%X{id}%n</pattern>
         </encoder>
     </appender>
 
-    <appender name="">
+    <appender name="ResourceFile"
+              class="ch.qos.logback.core.FileAppender">
+        <file>./logs/requests.log</file>
+        <append>false</append>
+        <layout>
+            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %level: %msg | request #%X{id}%n</pattern>
+        </layout>
+    </appender>
 
+    <appender name="BooksFile"
+              class="ch.qos.logback.core.FileAppender">
+        <file>./logs/books.log</file>
+        <append>false</append>
+        <layout>
+            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %level: %msg | request #%X{id}%n</pattern>
+        </layout>
     </appender>
 
     <!-- LOG everything at INFO level -->
-    <root level="info">
-        <appender-ref ref="Console" />
-    </root>
+    <root level="OFF" />
     <logger name="request-logger" level="info">
         <appender-ref ref="Console" />
-
+        <appender-ref ref="ResourceFile" />
+    </logger>
+    <logger name="books-logger" level="info">
+        <appender-ref ref="BooksFile" />
     </logger>
 </configuration>
